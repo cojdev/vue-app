@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<title>Vue To-Do List</title>
+<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <!-- Content -->
+    <div class="container">
+        <h1>Vue To-Do List</h1>
+        <div class="app" id="app">
+            <section class="new-task" id="new-task">
+                <input type="checkbox" name="check-all" id="check-all" v-bind:checked="areAllChecked" v-on:click="checkAll">
+                <input type="text" name="new-input" id="new-input" placeholder="Add a task" autofocus v-model="newTask" v-on:keyup.enter="addTask">
+            </section>
+            <ul class="list">
+                <li  v-for="task in taskList" :key="task.id">
+                    <input type="checkbox" v-model="task.checked" v-bind:id="'task-'+task.id">
+                    <label v-bind:for="'task-'+task.id" v-bind:class="{checked: task.checked}">{{  task.text }}</label>
+                    <button class="delete" v-on:click="removeTask(task)"><i class="fa fa-times" aria-hidden="true"></i></button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+
+    <script src="https://unpkg.com/vue"></script>
+    <script src="js/todo.js"></script>
+</body>
+
+</html>
