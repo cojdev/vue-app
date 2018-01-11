@@ -16,25 +16,44 @@
 
 <body>
     <!-- Content -->
-    <div class="container">
+    <div class="container" id="app">
         <h1>Vue To-Do List</h1>
-        <div class="app" id="app">
+        <div class="app">
             <section class="new-task" id="new-task">
-                <input type="checkbox" name="check-all" id="check-all" v-bind:checked="areAllChecked" v-on:click="checkAll">
-                <input type="text" name="new-input" id="new-input" placeholder="Add a task" autofocus v-model="newTask" v-on:keyup.enter="addTask">
+                <input type="checkbox" name="check-all" id="check-all" :checked="areAllChecked" @click="checkAll">
+                <input type="text" name="new-input" id="new-input" placeholder="Add a task" autofocus v-model="newTask" @keyup.enter="addTask">
             </section>
-            <ul class="list">
-                <li  v-for="task in taskList" :key="task.id">
-                    <input type="checkbox" v-model="task.checked" v-bind:id="'task-'+task.id">
-                    <label v-bind:for="'task-'+task.id" v-bind:class="{checked: task.checked}">{{  task.text }}</label>
-                    <button class="delete" v-on:click="removeTask(task)"><i class="fa fa-times" aria-hidden="true"></i></button>
+            <ul class="list" v-if="loaded" v-cloak>
+                <li  v-for="task in activeList" :key="task.id">
+                    <input type="checkbox" v-model="task.checked" :id="'check-'+task.id">
+                    <input type="checkbox" v-model="task.starred" :id="'star-'+task.id" class="star">
+                    
+                    <label :for="'task-'+task.id" :class="{checked: task.checked, starred: task.starred}">{{ task.text }}</label>
+                    <button class="delete" @click="removeTask(task)"><i class="fa fa-times" aria-hidden="true"></i></button>
+                </li>
+            </ul>
+            <ul class="foot-buttons">
+                <li>
+                    <button @click="removeChecked">Clear Completed</button>
+                </li>
+                <li>
+                    <button @click="activeList = taskList" :class="{active: queryList(taskList)}">All tasks</button>
+                </li>
+                <li>
+                    <button @click="activeList = starredList" :class="{active: queryList(starredList)}">Important</button>
+                </li>
+                <li>
+                    <button @click="activeList = uncheckedList" :class="{active: queryList(uncheckedList)}">Active</button>
+                </li>
+                <li>
+                    <button @click="activeList = checkedList" :class="{active: queryList(checkedList)}">Completed</button>
                 </li>
             </ul>
         </div>
+        <p class="counter" v-if="loaded" v-cloak>{{ checkCount }} / {{ taskCount }} Tasks Completed</p>
     </div>
-    
 
-    <script src="https://unpkg.com/vue"></script>
+    <script src="js/vue.js"></script>
     <script src="js/todo.js"></script>
 </body>
 

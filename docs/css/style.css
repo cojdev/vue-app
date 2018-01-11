@@ -1,3 +1,7 @@
+*,*::before,*::after {
+    box-sizing: border-box;
+}
+
 html {
     font-size: 20px;
     font-family: "Montserrat", sans-serif;
@@ -15,7 +19,9 @@ body {
 
 .container {
     margin: auto;
-    padding: 1rem;
+    padding: 1rem; 
+    width: 100%;
+    max-width: 640px;
 }
 
 .app {
@@ -28,13 +34,19 @@ body {
 h1 {
     text-align: center;
     color: #fff;
-    font-weight: 500;
+    font-weight: 300;
     font-size: 2rem;
     text-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
+p {
+    color: #fff;
+    font-weight: 300;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
 .new-task {
-    padding: 1rem;
+    padding: .75rem;
     background: #eee;
     border-radius: 4px 4px 0 0;
 }
@@ -55,16 +67,13 @@ input[type=text] {
 }
 
 .list li {
-    padding: 1rem;
+    padding: .75em;
     position: relative;
+    border-bottom: 1px solid #ddd;
 }
 
 .list li i {
     font-size: 1.2rem;
-}
-
-.list li:not(:last-child) {
-    border-bottom: 1px solid #ddd;
 }
 
 .list li button {
@@ -110,6 +119,10 @@ li label::after {
     transition: 450ms ease;
 }
 
+.starred {
+    color: #d12;
+}
+
 .checked {
     color: #aaa;
 }
@@ -117,3 +130,84 @@ li label::after {
 .checked::after {
     transform: scaleX(1);
 }
+
+.foot-buttons {
+    list-style: none;
+    margin: 0;
+    padding: .5rem;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.foot-buttons button {
+    cursor: pointer;
+    background: transparent;
+    color: #888;
+    border: none;
+    display: inline-block;
+    padding: .5em;
+    font-size: .7rem;
+    border-radius: 3px;
+    outline: none;
+    transition: 150ms ease;
+}
+
+.foot-buttons button.active {
+    color: #333;
+    background: #eee;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.counter {
+    text-align: center;
+}
+
+.form-check {
+    display: inline-block;
+    min-height: 1.5rem;
+  }
+  .form-check input[type="checkbox"] {
+    display: none;
+  }
+  .form-check input[type="checkbox"]:checked + label:before {
+    background: #08f;
+  }
+  .form-check input[type="checkbox"]:checked + label:after {
+    opacity: 1;
+  }
+  .form-check label {
+    position: relative;
+    padding: 0 .5rem 0 1.75rem;
+  }
+  .form-check label:before, .form-check label:after {
+    cursor: pointer;
+    content: "";
+    display: inline-block;
+    position: absolute;
+    transition: 300ms ease;
+  }
+  .form-check label:before {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: .25rem;
+    background: #fff;
+    border: 2px solid #eee;
+    left: 0;
+    top: 0.1rem;
+  }
+  .form-check label:after {
+    width: .75rem;
+    height: .375rem;
+    border-bottom: .1rem solid #fff;
+    border-left: .1rem solid #fff;
+    transform: rotate(-45deg);
+    left: .375rem;
+    top: .6rem;
+    opacity: 0;
+  }
+
+  [v-cloak] {
+      display: none;
+  }
